@@ -29,14 +29,16 @@ public class Manager {
         }
     }
 
-    //2. REMOVE A PRODUCT
-    public void removeProduct(Products product){
-        if(supereduced.contains(new SimpleEntry<>(product.getName(), product.getTaxType()))){
-            supereduced.remove(new SimpleEntry<>(product.getName(), product.getTaxType())); //Removing from supereduced
-        }else if(reduced.contains(new SimpleEntry<>(product.getName(), product.getTaxType()))){
-            reduced.remove(new SimpleEntry<>(product.getName(), product.getTaxType())); //Remove from reduce
-        }else{
-            general.remove(new SimpleEntry<>(product.getName(), product.getTaxType())); //Remove from general
+    //2. REMOVE A PRODUCT BY NAME
+    public void removeByName(String productName){
+        if(productList.containsKey(productName)){
+            productList.remove(productName);
         }
+
+        supereduced.removeIf(entry -> entry.getKey().equals(productName));
+        reduced.removeIf(entry -> entry.getKey().equals(productName));
+        general.removeIf(entry -> entry.getKey().equals(productName));
+        //Lambda expression operation:
+        //Removes the element in the corresponding ArrayList if, for the object "entry" the corresponding Key on the HashMap matches the name to remove
     }
 }
